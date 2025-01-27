@@ -6,7 +6,14 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
   { ignores: ['dist'] },
+  
   {
+    "env": {
+    "node": true
+  },
+  "globals": {
+    "process": "readonly"
+  },
     files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 2020,
