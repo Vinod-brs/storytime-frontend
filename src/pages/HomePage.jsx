@@ -3,7 +3,7 @@ import ImageBanner from "../components/home/ImageBanner";
 import PopularStories from "../components/home/PopularStories";
 import ShowsOfWeek from "../components/home/ShowsOfWeek";
 import TopStories from "../components/home/TopStories";
-import { setUserProfile } from "../store/user/authSlice";
+import { logout, setUserProfile } from "../store/user/authSlice";
 import { useGetUserProfileAPIQuery } from "../store/user/userApiSlice";
 import { useState, useEffect } from "react";
 import { useGetPopularShowsQuery } from "../store/spotify/spotifyApiSlice";
@@ -21,13 +21,30 @@ const HomePage = () => {
   const {data: languages} = useGetLanguagesQuery(); // user languages from database
 
   const [userLanguages, setUserLanguages] = useState("English");
-
+// console.log(isAdmin)
   
+// useEffect(() => {
+//   if(!isLoading){
+//     if(userData.isSuspended){
+//     dispatch(logout())
+//     toast.error("Your Account has been Suspended!")
+//   }
+// }
+// }, [userData, isLoading])
 
   useEffect(() => {
       if (!isLoading) {
-          dispatch(setUserProfile({ ...data }));             
+          dispatch(setUserProfile({ ...data }));
+          if(userData){
+            if(userData.isSuspended){
+            dispatch(logout())
+            toast.error("Your Account has been Suspended!")
+            location.reload();
+          }
+          }       
+          
       }
+      
   }, [isLoading, data, dispatch]);
 
   useEffect(() => {

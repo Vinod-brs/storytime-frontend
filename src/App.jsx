@@ -18,10 +18,17 @@ import CategoryStoriesPage from "./pages/CategoryStoriesPage";
 import Sidebar from "react-sidebar";
 import SidebarPlayer from "./components/sidebar/sidebarPlayer";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleSidebarMinimize, updateSpotifyToken } from "./store/user/authSlice";
+import { logout, toggleSidebarMinimize, updateSpotifyToken } from "./store/user/authSlice";
 import { useEffect, useState } from "react";
 import { useGetRefreshTokenAPIQuery } from "./store/user/userApiSlice";
 import CatchyMusicButton from "./components/sidebar/CatchyMusicButton";
+
+
+import AdminRoutes from "./components/AdminRoutes";
+import UsersTable from "./components/admin/UsersTable";
+import AdminsTable from "./components/admin/AdminsTable";
+import AdminCategories from "./components/admin/AdminCategories";
+import AdminLanguages from "./components/admin/AdminLanguages";
 
 
 
@@ -51,10 +58,19 @@ const router = createBrowserRouter([
       { path: "/authors", element: <AuthorsPage /> },
       { path: "/authorstories", element: <AuthorStoriesPage /> },
       { path: "/library", element: <LibraryPage /> },
+      
+
+
     ]}
 
   ]},
-  
+
+  {element: <AdminRoutes />, children: [
+    { path: "/users", element: <UsersTable /> },
+    { path: "/admins", element: <AdminsTable /> },
+    { path: "/admincategories", element: <AdminCategories /> },
+    { path: "/adminlanguages", element: <AdminLanguages /> },
+  ]},
 ])
 
 export default function App() {
@@ -115,9 +131,11 @@ export default function App() {
       pullRight={true}
       sidebarClassName={'shadow-none fixed z-40'}
     />
-{(!isSidebarMinimized && isSidebarOpen) && <CatchyMusicButton />}
-</div>
+    {(!isSidebarMinimized && isSidebarOpen) && <CatchyMusicButton />}
+    </div>
     }
+
+    
     
     <RouterProvider router={router} />
     

@@ -3,6 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const userData = JSON.parse(localStorage.getItem("userdata")) || null
 const token = JSON.parse(localStorage.getItem("token")) || null
 const spotifyToken = JSON.parse(localStorage.getItem("spotifyToken")) || null
+
+const isSuspended= false
+const isAdmin = JSON.parse(localStorage.getItem("isAdmin")) || false
 const initialState = {
     token,
     spotifyToken,
@@ -11,6 +14,9 @@ const initialState = {
     isSidebarOpen: false,
     isSidebarMinimized: false,
     storyInfo: {name: null, id: null},
+
+    isSuspended,
+    isAdmin,
     
 };
 
@@ -24,7 +30,9 @@ const authSlice = createSlice({
             state.spotifyToken = action.payload.spotifyToken.access_token;
             localStorage.setItem("spotifyToken", JSON.stringify(action.payload.spotifyToken.access_token));
             state.isLoggedIn = true;
-            state.Start = true;
+            state.isAdmin = action.payload.isAdmin;
+            localStorage.setItem("isAdmin", JSON.stringify(action.payload.isAdmin));
+           
         },
         register: (state, action) => {
             state.token = action.payload.message;
@@ -71,10 +79,12 @@ const authSlice = createSlice({
             state.isLoggedIn = false;
             state.userData = null;
             state.isSidebarOpen = null;
-            state.isSidebarMinimized = null
+            state.isSidebarMinimized = null;
+            state.isAdmin = false;
             localStorage.removeItem("token");
             localStorage.removeItem("spotifyToken");
             localStorage.removeItem("userdata");
+            localStorage.removeItem("isAdmin");
             localStorage.clear();
          
             

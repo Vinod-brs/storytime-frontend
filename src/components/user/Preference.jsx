@@ -27,7 +27,7 @@ const Preference = () => {
     useEffect(() => {
         if (!uDataLoad) {
             dispatch(setUserProfile({ ...data }));
-             console.log(data); 
+            //  console.log(data); 
         }
     }, [uDataLoad, data, dispatch]);
     useEffect(() => {

@@ -32,7 +32,7 @@ const LibraryPage = () => {
 
   useEffect(() => {
     refecthUserStories();
-  })
+  }, [refecthUserStories])
   useEffect(() => {
   
     refecthStories();

@@ -62,11 +62,19 @@ const LoginPage =  () => {
     }else{
       setToken(null)
     }
+
     if(response.Token){
-      toast.success("Login successful!")
-      dispatch(login({...response}))
-      resetForm()
-      navigate("/home");
+
+      if(response.isSuspended){
+        toast.error("Your account has been suspended. For assistance, please contact the administrator.")
+      }else{
+        toast.success("Login successful!")
+        dispatch(login({...response}))
+        resetForm()
+        navigate("/home");
+      }
+
+      
     }
     
 

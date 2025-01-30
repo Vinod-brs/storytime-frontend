@@ -1,6 +1,6 @@
 import {  Link, NavLink, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../store/user/authSlice";
+import { logout } from "../../store/user/authSlice";
 import { toast } from "react-toastify";
 import { useState, useEffect, useRef } from "react";
 
@@ -8,7 +8,7 @@ import { useState, useEffect, useRef } from "react";
 
 
 
-const NavigationBar = () => {
+const AdminNavbar = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -104,35 +104,35 @@ const NavigationBar = () => {
                   src="./images/logo.svg"
                   alt="Workflow"
                 />
-              </Link>
-              StoryTime
+              </Link> 
+                <b> StoryTime ADMIN</b>
             </div>
             <div className="hidden sm:block sm:ml-6">
               <div className="flex space-x-4 items-center leading-loose px-4">
-                <NavLink to="/home" className={({isActive}) => (isActive
+                <NavLink to="/users" className={({isActive}) => (isActive
                   ? "relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-yellow-300 after:origin-left after:transition-transform after:duration-300 after:scale-x-100 after:animate-slide"
                   : "relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-gray-400 after:origin-right after:transition-transform after:duration-200 after:scale-x-0 hover:after:scale-x-100"
-                  )}>Home</NavLink>
-                <NavLink to="/categories" className={({isActive}) => (isActive
+                  )}>Users</NavLink>
+                <NavLink to="/admins" className={({isActive}) => (isActive
+                  ? "relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-yellow-300 after:origin-left after:transition-transform after:duration-300 after:scale-x-100 after:animate-slide"
+                  : "relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-gray-400 after:origin-right after:transition-transform after:duration-200 after:scale-x-0 hover:after:scale-x-100"
+                  )}>Admins</NavLink>
+                <NavLink to="/admincategories" className={({isActive}) => (isActive
                   ? "relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-yellow-300 after:origin-left after:transition-transform after:duration-300 after:scale-x-100 after:animate-slide"
                   : "relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-gray-400 after:origin-right after:transition-transform after:duration-200 after:scale-x-0 hover:after:scale-x-100"
                   )}>Categories</NavLink>
-                <NavLink to="/authors" className={({isActive}) => (isActive
-                  ? "relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-yellow-300 after:origin-left after:transition-transform after:duration-300 after:scale-x-100 after:animate-slide"
-                  : "relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-gray-400 after:origin-right after:transition-transform after:duration-200 after:scale-x-0 hover:after:scale-x-100"
-                  )}>Authors</NavLink>
-                <NavLink to="/library" className={({isActive}) => (isActive
+                <NavLink to="/adminlanguages" className={({isActive}) => (isActive
                   ? "relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-yellow-300 after:origin-left after:transition-transform after:duration-300 after:scale-x-100 after:animate-slide"
                   : "relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-gray-400 after:origin-left after:transition-transform after:duration-200 after:scale-x-0 hover:after:scale-x-100"
-                  )}>Library</NavLink>
-                  <NavLink to="/users" className={isAdmin ? "text-green-500 relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-gray-400 after:origin-left after:transition-transform after:duration-200 after:scale-x-0 hover:after:scale-x-100" : "hidden"} >Admin Dashboard</NavLink>
+                  )}>Languages</NavLink>
+                  <NavLink to="/home" className="text-red-400 relative px-3 py-2 after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-full after:h-0.5 after:bg-gray-400 after:origin-left after:transition-transform after:duration-200 after:scale-x-0 hover:after:scale-x-100">User Dashboard</NavLink>
               </div>
             </div>
             
           </div>
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-         { userData && !isLoading &&  <p className="text-white pr-2">Welcome back, {userData.first_name}! { userData.isAdmin ? '🏆' : '😊'} </p>}
+         { userData && !isLoading &&  <p className="text-white pr-2">Welcome back, {userData.first_name}! 🏆 </p>}
             <ul className="menu">
             <li
                 className={`dropdown dropdown-6 relative ${isActive ? 'active' : ''}`}
@@ -175,4 +175,4 @@ const NavigationBar = () => {
   )
 }
 
-export default NavigationBar;
+export default AdminNavbar;

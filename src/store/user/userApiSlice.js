@@ -28,7 +28,7 @@ const USER_ENDPOINT = "/api/users";
         getUserProfileAPI : builder.query({
             query: (data) => ({
                 url: `${USER_ENDPOINT}/profile`,
-                method: "get",
+                method: "GET",
                 body: data,
             }),
         }),
