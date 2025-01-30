@@ -5,7 +5,7 @@ import { useGetCategoriesQuery } from "../store/category/categoryApiSlice";
 import { useGetLanguagesQuery } from "../store/language/languageApiSlice";
 import { useGetUserProfileAPIQuery, useUpdateLanguageAPIMutation } from "../store/user/userApiSlice";
 import { useEffect, useState } from "react";
-import { setUserProfile, toggleLanguageSelection } from "../store/user/authSlice";
+import { logout, setUserProfile, toggleLanguageSelection } from "../store/user/authSlice";
 import { toast } from "react-toastify/unstyled";
 import { useNavigate } from "react-router-dom";
 
@@ -26,7 +26,20 @@ import { useNavigate } from "react-router-dom";
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  
+  useEffect(() => {
+        if (!isLoading) {
+            dispatch(setUserProfile({ ...data }));
+            if(userData){
+              if(userData.isSuspended){
+              dispatch(logout())
+              toast.error("Your Account has been Suspended!")
+              location.reload();
+            }
+            }       
+            
+        }
+        
+    }, [isLoading, data, dispatch]);
     
     useEffect(() => {
         if (!uDataLoad) {

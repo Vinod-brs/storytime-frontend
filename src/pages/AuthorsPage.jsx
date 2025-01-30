@@ -1,24 +1,46 @@
 import { useEffect, useState } from "react";
 import AuthorsList from "../components/authors/AuthorsList"
 import { useGetPopularShowsQuery } from "../store/spotify/spotifyApiSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetLanguagesQuery } from "../store/language/languageApiSlice";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { Formik, Form, Field } from 'formik';
+import { useGetUserProfileAPIQuery } from "../store/user/userApiSlice";
+import { logout } from "../store/user/authSlice";
+import { toast } from "react-toastify";
+
 
 
 
 const AuthorsPage = () => {
+
+  
 
   const [authorsList, setAuthorsList] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
   const {userData} = useSelector((state) => state.auth)
   const {data: languagesData, isLoading: languageLoading} = useGetLanguagesQuery();
 
-  
-
+  const {data, isLoading, refetch: refetchUserInfo} = useGetUserProfileAPIQuery();
   const [search, setSearch] = useState(localStorage.getItem('ss') || 'popular stories top stories Comedy and Light-Hearted Tales kids stories motivation stories  Language:');
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    refetchUserInfo();
+  }, [refetchUserInfo])
+  useEffect(() => {
+    if (!isLoading) {
+        if(data){
+          if(data.profileData.isSuspended){
+          dispatch(logout())
+          toast.error("Your Account has been Suspended!")
+          location.reload();
+        }
+        }   
+    }
+    
+}, [isLoading, data, dispatch]);
 
   useEffect(() => {
     if(languagesData && !languageLoading){

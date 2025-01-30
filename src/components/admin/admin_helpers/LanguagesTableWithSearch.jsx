@@ -140,7 +140,7 @@ const LanguagesTableWithSearch = ({ data, onUpdate, onDelete }) => {
   
         <table className="table-auto w-full border-collapse border border-gray-200">
           <thead>
-            <tr className="bg-blue-600">
+            <tr className="bg-gray-900">
               <th className="border border-gray-300 px-4 py-2 text-left">S.No</th>
               {columns.map((col) => (
                 <th key={col.key} className="border border-gray-300 px-4 py-2 text-left">
@@ -152,7 +152,7 @@ const LanguagesTableWithSearch = ({ data, onUpdate, onDelete }) => {
           </thead>
           <tbody>
             {paginatedData.map((row, rowIndex) => (
-              <tr key={rowIndex} className={rowIndex % 2 === 0 ? "" : ""}>
+              <tr key={rowIndex} className={rowIndex % 2 === 0 ? "bg-gray-800" : "bg-gray-600"}>
                 <td className="border border-gray-300 px-4 py-2">
                   {(currentPage - 1) * recordsPerPage + rowIndex + 1}
                 </td>
@@ -162,7 +162,7 @@ const LanguagesTableWithSearch = ({ data, onUpdate, onDelete }) => {
                       <select
                         value={row[col.key]}
                         onChange={(e) => handleChange(e, rowIndex, col.key)}
-                        className="border bg-black rounded px-2 py-3 w-full"
+                        className={rowIndex % 2 === 0 ? "border bg-gray-800 rounded px-2 py-3 w-full" : "border bg-gray-600 rounded px-2 py-3 w-full"}
                       >
                         <option value="true">Yes</option>
                         <option value="false">No</option>
@@ -172,14 +172,14 @@ const LanguagesTableWithSearch = ({ data, onUpdate, onDelete }) => {
                         type="text"
                         value={col.render(row[col.key])}
                         readOnly
-                        className="border bg-black rounded px-2 py-3 w-full"
+                        className={rowIndex % 2 === 0 ? "border bg-gray-800 rounded px-2 py-3 w-full" : "border bg-gray-600 rounded px-2 py-3 w-full"}
                       />
                     ) : (
                       <input
                         type="text"
                         value={row[col.key]}
                         onChange={(e) => handleChange(e, rowIndex, col.key)}
-                        className="border bg-black rounded px-2 py-3 w-full"
+                        className={rowIndex % 2 === 0 ? "border bg-gray-800 rounded px-2 py-3 w-full" : "border bg-gray-600 rounded px-2 py-3 w-full"}
                       />
                     )}
                   </td>

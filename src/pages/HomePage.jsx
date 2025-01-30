@@ -23,14 +23,6 @@ const HomePage = () => {
   const [userLanguages, setUserLanguages] = useState("English");
 // console.log(isAdmin)
   
-// useEffect(() => {
-//   if(!isLoading){
-//     if(userData.isSuspended){
-//     dispatch(logout())
-//     toast.error("Your Account has been Suspended!")
-//   }
-// }
-// }, [userData, isLoading])
 
   useEffect(() => {
       if (!isLoading) {

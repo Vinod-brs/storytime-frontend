@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom"
 import LibraryList from "../components/LibraryList"
-import { useGetLibraryAPIQuery } from "../store/user/userApiSlice";
+import { useGetLibraryAPIQuery, useGetUserProfileAPIQuery } from "../store/user/userApiSlice";
 import { useEffect, useState } from "react";
 import { useGetShowsByShowIdQuery } from "../store/spotify/spotifyApiSlice";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/user/authSlice";
+import { toast } from "react-toastify";
+
+
 
 const LibraryPage = () => {
 
@@ -11,9 +16,15 @@ const LibraryPage = () => {
   const [userShows, setUserShows] = useState([]);
 
   const {data:userStoryIds, isLoading: userStoriesLoading, refetch: refecthUserStories} = useGetLibraryAPIQuery();
+  const {data:userData, isLoading, refetch: refetchUserInfo} = useGetUserProfileAPIQuery();
   
   const {data:shows, isLoading: showsLoading, refetch: refecthStories} = useGetShowsByShowIdQuery(userIds);
   
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    refetchUserInfo();
+  }, [refetchUserInfo])
 
   useEffect(() => {
     if(!showsLoading && shows){
@@ -21,7 +32,20 @@ const LibraryPage = () => {
     }
   }, [showsLoading,userShows, shows])
 
-
+useEffect(() => {
+        if (!isLoading) {
+           
+            if(userData){
+              if(userData.profileData.isSuspended){
+              dispatch(logout())
+              toast.error("Your Account has been Suspended!")
+              location.reload();
+            }
+            }       
+            
+        }
+        
+    }, [isLoading, userData, dispatch]);
 
   useEffect(() => {
     if(!userStoriesLoading && userStoryIds){
